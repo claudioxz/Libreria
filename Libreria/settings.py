@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app.apps.AppConfig',
+    'Gestion_Libreros.apps.AppConfig',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +78,10 @@ WSGI_APPLICATION = 'Libreria.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.libreria'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
     }
 }
 
