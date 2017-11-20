@@ -1,0 +1,114 @@
+{% extends 'Gestion_Libreros/base.html' %}
+{% load static %}
+{% block script %}
+    <script src="{% static 'js/libro.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <article class="row">
+        <section class="col s3">
+            <img style="max-width: 100%" src="https://imagessl2.casadellibro.com/a/l/t0/62/9788498382662.jpg">
+        </section>
+        <section class="col s9">
+            <div class="row">
+                <span class="titulo">{{ object.titulo }}</span>
+                {% if object.subtitulo %}
+                    <span class="subtitulo">{{ object.subtitulo }}</span>
+                {% endif %}
+                <div>
+                    de <a href="#">{{ object.autor.nombre }} (Autor)</a>
+                </div>
+                <div>
+                    <span class="bold">Tags: </span>
+                    {% for tag in object.tags.all %}
+                        <a href="#">#{{ tag.nombre }}</a>
+                    {% endfor %}
+                </div>
+                <div>
+                    <span class="bold">Pertenece a la coleccion: </span><a href="#">{{ libro.coleccion.nombre }}</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="divider"></div>
+            </div>
+            <div class="row">
+                <span class="titulo">Ediciones: </span>
+                <div class="edicion bold" id="">
+                    <span>
+                        Tapa dura
+                    </span>
+                </div>
+                <div class="edicion">
+                    <span>
+                        Tapa blanda
+                    </span>
+                </div>
+                <a class="btn btn-floating modal-trigger" href="#modal-edicion"><i class="material-icons">add</i></a>
+            </div>
+        </section>
+    </article>
+    <!-- Edicion modal -->
+    <div id="modal-edicion" class="modal">
+        <div class="modal-content">
+            <h4>Nueva Edicion</h4>
+            <form id="nuevo-edicion"  method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in formEdicion %}
+                    <div class="row">
+                        {% if field.name == "imagen" %}
+                            <div class="file-field input-field col s8 offset-s2">
+                                <div class="btn">
+                                    <span>Imagen</span>
+                                    <input type="file"  accept="image/jpeg" name="imagen" required id="id_imagen">
+                                </div>
+                                <div class="file-path-wrapper" id="path-id_imagen">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        {% elif field.name == "anno" %}
+                            <div class="input-field col s8 offset-s2">
+                                <input type="text" class="datepicker" name="anno" id="id_anno" >
+                                <label for="id_anno">Fecha de publicacion </label>
+                            </div>
+                        {% else %}
+                            <div class="input-field col s8 offset-s2">
+                                {{ field.errors }}
+                                {{ field }} {{ field.label_tag }}
+                            </div>
+                        {% endif %}
+                        {% if field.name == "sello" %}
+                            <div class="col s1 ">
+                                <a class="btn btn-floating modal-trigger" href="#modal-{{ field.name }}"><i class="material-icons">add</i></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="crear_edicion" class="modal-action btn-flat">Guardar</button>
+        </div>
+    </div>
+    <!-- end edicon modal -->
+    <!-- Sello-modal -->
+    <div id="modal-sello" class="modal">
+        <div class="modal-content">
+            <h4>Nuevo sello</h4>
+            <form id="nuevo-sello" method="post">
+                {% csrf_token %}
+                {% for field in formSello %}
+                    <div class="row">
+                        <div class="input-field col s8 offset-s2">
+                            {{ field.errors }}
+                            {{ field }} {{ field.label_tag }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="crear_sello" class="modal-action btn-flat">Guardar</button>
+        </div>
+    </div>
+    <!-- end Sellomodal -->
+{% endblock %}

@@ -1,0 +1,52 @@
+.titulo{
+    font-size: 20px;
+    font-weight: bold;
+}
+.subtitulo{
+    font-size: 18px;
+    color:rgba(109,109,109,0.8);
+}
+.bold{
+    font-weight: bold;
+}
+.edicion{
+    display: inline-block;
+    border: 1px solid #f58549;
+    padding: 15px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+.edicion:hover{
+    background-color: rgba(226,226,226,0.8);
+    cursor: pointer;
+}
+.edicion-active{
+    font-weight: bold;
+}
+.wrapper {
+    padding-left: 300px;
+}
+.content{
+    margin-top: 15px;
+    padding-left: 315px;
+}
+@media only screen and (max-width : 992px) {
+    .wrapper, .content{
+    padding-left: 0;
+    }
+}
+label[data-error]:after {
+    white-space: nowrap;
+}
+.valid-message{
+    color: #00973c;
+}
+select.error ~ .select-dropdown {
+    border-bottom: 1px solid #F44336;
+}
+.error-message{
+    color:#F44336;
+    font-size: 13px;
+    bottom: 20px;
+    position: relative;
+}

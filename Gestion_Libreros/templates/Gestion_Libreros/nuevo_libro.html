@@ -1,0 +1,105 @@
+{% extends 'Gestion_Libreros/base.html' %}
+
+{% load static %}
+{% block script %}
+    <script src="{% static 'js/nuevo_libro.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <form  method="post">{% csrf_token %}
+        <div>
+            {% for field in form %}
+                <div class="row">
+                    <div class="input-field col s8 offset-s2">
+                        {{ field.errors }}
+                        {{ field }} {{ field.label_tag }}
+                    </div>
+                    {% if field.name == "autor" or field.name == "tags" or field.name == "coleccion" %}
+                        <div class="col s1 ">
+                            <a class="btn btn-floating modal-trigger" href="#modal-{{ field.name }}"><i class="material-icons">add</i></a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <div class="row">
+                <input type="submit" class="btn col s2 offset-s8" value="Guardar" >
+            </div>
+        </div>
+    </form>
+    <!--- Autor Modal  -->
+    <div id="modal-autor" class="modal">
+        <div class="modal-content">
+            <h4>Nuevo Autor</h4>
+            <form id="nuevo-autor" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <input name="nombre" id="id_nombre" type="text">
+                        <label>Nombre: </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <input type="text" class="datepicker" name="fecha_nac" id="id_fecha_nac" >
+                        <label>Fecha de nacimiento: </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <select  name="pais" id="id_pais">
+                            <option value="">-----</option>
+                            {% for pais in paises %}
+                                <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Seleccionar pais: </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="crear_autor" class="modal-action btn-flat">Guardar</button>
+        </div>
+    </div>
+    <!--- end Autor Modal  -->
+
+    <!--- Tag modal -->
+    <div id="modal-tags" class="modal">
+        <div class="modal-content">
+            <h4>Nuevo Tag</h4>
+            <form id="nuevo-tag" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <input name="nombre" id="nombre-tag" type="text">
+                        <label>Nombre: </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="crear_tag" class="modal-action btn-flat">Guardar</button>
+        </div>
+    </div>
+    <!--- end tag modal -->
+
+    <!--- Coleccion modal -->
+    <div id="modal-coleccion" class="modal">
+        <div class="modal-content">
+            <h4>Nueva Coleccion</h4>
+            <form id="nuevo-coleccion" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <input name="nombre" id="nombre-coleccion" type="text">
+                        <label>Nombre: </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="crear_coleccion" class="modal-action btn-flat">Guardar</button>
+        </div>
+    </div>
+    <!--- end coleccion modal -->
+{% endblock content %}

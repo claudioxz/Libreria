@@ -1,0 +1,86 @@
+{% extends 'Gestion_Libreros/base.html' %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'js/editoriales.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="">
+        <h2>Editoriales</h2>
+    </div>
+    <div class="row">
+        <div class="input-field col s8">
+            <i class="material-icons prefix">search</i>
+            <input id="busqueda" type="text" placeholder="Buscar"  class="autocomplete" >
+        </div>
+        <div class="col s3 m3">
+            <a class="btn modal-trigger" href="#modal-editorial">Nueva editorial</a>
+        </div>
+    </div>
+    <div class="row">
+        <table id="tabla-editorial" class="bordered  highlight">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th colspan="2">Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for editorial in editoriales %}
+                    <tr id="{{ editorial.id }}">
+                      <td>{{editorial.nombre}}</td>
+                      <td>
+                          <a class="modal-trigger" onclick="copiarAModal({{ editorial.id }})" href="#modal-editar-editorial">
+                              <i class="material-icons" >edit</i> Editar
+                          </a>
+                      </td>
+                      <td>
+                          <a style="cursor: pointer;" data-id="{{ editorial.id }}" id="eliminar_editorial">
+                              <i class="material-icons">close</i> Eliminar
+                          </a>
+                      </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Crear Editorial modal  -->
+    <div id="modal-editorial" class="modal">
+        <div class="modal-content">
+            <h4>Nueva Editorial</h4>
+            <form id="nuevo-editorial" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="input-field col s6 offset-s3">
+                        <input name="nombre" placeholder=""  id="nombre-editorial" type="text">
+                        <label>Nombre: </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="crear_editorial" class="btn-flat">Guardar</button>
+        </div>
+    </div>
+    <!--Fin crear editorial -->
+    <!--Editar editorial modal-->
+    <div id="modal-editar-editorial" class="modal">
+        <div class="modal-content">
+            <h4>Editando Editorial</h4>
+            <form id="editar-editorial" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <input type="hidden" name="pk" id="editorial-id">
+                    <div class="input-field col s6 offset-s3">
+                        <input name="nombre" placeholder="" id="nombre-editar-editorial" type="text">
+                        <label>Nombre: </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="editar_editorial" class="btn-flat">Guardar</button>
+        </div>
+    </div>
+{% endblock %}

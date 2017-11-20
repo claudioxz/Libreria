@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>{{ titulo }}</title>
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script type="text/javascript" src="{% static 'js/lib/jquery.js' %}"></script>
+    <script src="{% static 'js/lib/materialize.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block script %}
+    {% endblock %}
+
+</head>
+<body>
+    <ul id="slide-out" class="side-nav fixed hide-on-med-and-down">
+        <li>
+            <div class="row center">
+                <div class="col m12 s12 " >
+                    <div class="row">
+                        <div class="input-field col s6 s12">
+                            <i class="material-icons prefix">search</i>
+                            <input type="text" placeholder="Buscar"  class="autocomplete" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header" data-href="{% url 'GestionLibros' %}">
+                        Gestion de Libros
+                    </div>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a  href="">Autores</a></li>
+                            <li><a href="{% url 'GestionEditoriales' %}">Editoriales</a></li>
+                            <li><a href="#">Tags</a></li>
+                            <li><a href="#">Colecciones</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header">
+                      Second
+                    </div>
+                    <div class="collapsible-body">
+                        asdadsasdasd
+                    </div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <nav class="wrapper">
+        <div class="nav-wrapper brown">
+            <a href="{% url 'Inicio' %}" class="brand-logo">Libreria</a>
+            <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="{% url 'GestionLibros' %}">Gestion de Libros</a></li>
+                <li><a href="#">Gestion de Libreros</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

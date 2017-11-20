@@ -14,8 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
+
+from Gestion_Libreros.views import *
+
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', Inicio.as_view(), name="Inicio"),
+    url(r'^gestion_libros/$', GestionLibros.as_view(), name="GestionLibros"),
+    url(r'^gestion_libros/nuevo_libro/$', NuevoLibro.as_view(), name="NuevoLibro"),
+    url(r'^ajax/crear_autor/$', crear_autor, name="CrearAutor"),
+    url(r'^ajax/crear_tag/$', crear_tag, name="CrearTag"),
+    url(r'^ajax/crear_coleccion/$', crear_coleccion, name="CrearColeccion"),
+    url(r'^ajax/crear_edicion/$', crear_edicion, name="CrearEdicion"),
+    url(r'^ajax/crear_editorial/$', crear_editorial, name="CrearEditorial"),
+    url(r'^ajax/eliminar_editorial/$', eliminar_editorial, name="EliminarEditorial"),
+    url(r'^ajax/editar_editorial/$', editar_editorial, name="EditarEditorial"),
+    url(r'^ajax/nuevo_sello/$', nuevo_sello, name="NuevoSello"),
+    url(r'^gestion_libros/libro/(?P<pk>[0-9]+)$', LibroDetalles.as_view(), name="DetalleLibro"),
+    url(r'^gestion_libros/editoriales/$', GestionEditoriales.as_view(), name="GestionEditoriales"),
 ]

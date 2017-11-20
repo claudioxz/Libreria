@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,7 +27,8 @@ SECRET_KEY = '$$q+f=@f(%(jly$u&wr1b567prj2js2!v8#nu2av_9jr2)p!df'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+MEDIA_ROOT = '/home/claudio/PycharmProjects/Libreria/media/'
+MEDIA_URL = '/media/'
 
 # Application definition
 
@@ -105,10 +107,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# Internationalizatio   n
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
